@@ -12,7 +12,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 git branch: 'main',
-                url: 'https://github.com/ESSAFI01/REPO.git',
+                    url: 'https://github.com/ESSAFI01/REPO.git'
             }
         }
 
@@ -59,7 +59,7 @@ pipeline {
                 bat """
                 call ${VENV_DIR}\\Scripts\\activate
                 start /B gunicorn --bind ${HOST}:${PORT} ${APP_MODULE} > gunicorn.log 2>&1
-                echo ✅ Gunicorn started on http://${HOST}:${PORT}
+                echo Gunicorn started on http://${HOST}:${PORT}
                 """
             }
         }
@@ -67,33 +67,12 @@ pipeline {
 
     post {
         success {
-            emailext(
-                to: "EMAIL_TO_PLACEHOLDER",
-                from: "EMAIL_FROM_PLACEHOLDER",
-                replyTo: "EMAIL_REPLY_PLACEHOLDER",
-                subject: "✅ SUCCESS: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-                mimeType: 'text/html',
-                body: """\
-                <p>Good news!</p>
-                <p>Build <b>${env.JOB_NAME} #${env.BUILD_NUMBER}</b> succeeded.</p>
-                <p>Check details: <a href="${env.BUILD_URL}">${env.BUILD_URL}</a></p>
-                """
-            )
+            echo "Pipeline completed successfully ✅"
+            // emailext(...)  <-- remove/comment out for TP
         }
-
         failure {
-            emailext(
-                to: "EMAIL_TO_PLACEHOLDER",
-                from: "EMAIL_FROM_PLACEHOLDER",
-                replyTo: "EMAIL_REPLY_PLACEHOLDER",
-                subject: "❌ FAILURE: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-                mimeType: 'text/html',
-                body: """\
-                <p>Uh oh...</p>
-                <p>Build <b>${env.JOB_NAME} #${env.BUILD_NUMBER}</b> failed.</p>
-                <p>Check logs: <a href="${env.BUILD_URL}">${env.BUILD_URL}</a></p>
-                """
-            )
+            echo "Pipeline failed ❌"
+            // emailext(...)  <-- remove/comment out for TP
         }
     }
 }
