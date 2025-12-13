@@ -12,7 +12,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 git branch: 'main',
-                    url: 'https://github.com/ESSAFI01/REPO.git'
+                url: 'https://github.com/ESSAFI01/REPO.git',
             }
         }
 
@@ -59,20 +59,10 @@ pipeline {
                 bat """
                 call ${VENV_DIR}\\Scripts\\activate
                 start /B gunicorn --bind ${HOST}:${PORT} ${APP_MODULE} > gunicorn.log 2>&1
-                echo Gunicorn started on http://${HOST}:${PORT}
+                echo ✅ Gunicorn started on http://${HOST}:${PORT}
                 """
             }
         }
     }
 
-    post {
-        success {
-            echo "Pipeline completed successfully ✅"
-            // emailext(...)  <-- remove/comment out for TP
-        }
-        failure {
-            echo "Pipeline failed ❌"
-            // emailext(...)  <-- remove/comment out for TP
-        }
-    }
 }
