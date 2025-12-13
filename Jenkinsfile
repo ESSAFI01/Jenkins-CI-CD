@@ -12,7 +12,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 git branch: 'main',
-                    url: 'https://github.com/ESSAFI01/REPO.git',
+                url: 'https://github.com/ESSAFI01/REPO.git',
             }
         }
 
