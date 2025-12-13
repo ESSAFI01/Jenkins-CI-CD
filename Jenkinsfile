@@ -2,7 +2,6 @@ pipeline {
     agent any
 
     environment {
-        GITHUB_TOKEN = credentials('github-token')
         VENV_DIR = ".venv"
         HOST = "0.0.0.0"
         PORT = "5000"
@@ -13,8 +12,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 git branch: 'main',
-                    url: 'https://github.com/USERNAME/REPO.git',
-                    credentialsId: 'github-token'
+                    url: 'https://github.com/ESSAFI01/REPO.git',
             }
         }
 
